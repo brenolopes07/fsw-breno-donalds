@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ChevronLeftIcon, ChevronRightIcon, ScrollTextIcon } from "lucide-react";
 import RestaurantHeader from "./components/header";
+import RestaurantCategories from "../components/categories";
 
 interface RestaurantMenuPageProps {
   params: Promise<{ slug: string }>;
@@ -27,6 +28,9 @@ const RestaurantMenuPage = async ({
     where: {
       slug,
     },
+    include: { menuCategories: {
+      include: {products: true},
+    } },
   });
   if (!restaurant) {
     return notFound();
@@ -35,6 +39,7 @@ const RestaurantMenuPage = async ({
   return (
     <div>
       <RestaurantHeader restaurant={restaurant} />
+      <RestaurantCategories restaurant={restaurant}/>
     </div>
     
   )
