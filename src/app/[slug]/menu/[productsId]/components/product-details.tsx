@@ -40,7 +40,7 @@ const ProductDetailt = ( { product }: ProductDetailtProps) => {
             <h2 className="text-xl font-semibold mt-1">
                     {product.name}
             </h2>
-            <div className="flex item-center justify-between">
+            <div className="flex item-center justify-between mt-3">
                 <h3 className="text-xl font-semibold">
                     {formatCurrency(product.price)}
                 </h3>
@@ -66,9 +66,12 @@ const ProductDetailt = ( { product }: ProductDetailtProps) => {
                     <div className=" 5 flex items-center gap-1">
                     <ChefHatIcon size={18}/>
                     <h4 className="font-semibold">Ingredientes</h4>
-                </div>
-                    <p className=" text-sm text-muted-foreground">{product.description}</p>                                   
-
+                </div>                                        
+                    <ul className="list-disc px-5 text-sm text-muted-foreground">
+                        {product.ingredients.map((ingredient =>(
+                            <li key={ingredient}>{ingredient}</li>
+                        )))}
+                    </ul>
                 </div>     
                 </ScrollArea>   
             </div>    
