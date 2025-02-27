@@ -1,6 +1,7 @@
 "use client"
 
 import { Button } from "@/components/ui/button";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { formatCurrency } from "@/helpers/format-currency";
 import { Prisma, Product, Restaurant } from "@prisma/client";
 import { ChefHatIcon, ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
@@ -28,9 +29,9 @@ const ProductDetailt = ( { product }: ProductDetailtProps) => {
         setQuantity((prev) => prev +1);
     };
     return ( 
-        <div className="relative z-50 rounded-t-3xl py-5 mt-[-1.5rem] p-5 flex flex-col ">
-            <div className="flex-auto">
-                <div className="flex item-center gap-1.5">
+        <div className="h-screen flex flex-col ">
+            <div className="flex-1 flex flex-col min-h-0 p-5">
+                   <div className="flex item-center gap-1.5">
                     <Image src= {product.restaurant.avatarImageUrl} alt={product.restaurant.name} width={16} height={16} className="rounded-full"/>
                     <p className="text-xs text-muted-foreground">
                         {product.restaurant.name}
@@ -51,26 +52,31 @@ const ProductDetailt = ( { product }: ProductDetailtProps) => {
                     <Button variant="destructive" className="h-8 w-8 rounded-xl " onClick={handleIncreaseQuantity}>
                         <ChevronRightIcon/>
                     </Button>
+                </div>                
+            </div>
+
+            <div className=" flex-1 overflow-auto mt-4">
+                <ScrollArea className="h-full">
+                <div className="mt-6 space-y-3">
+                    <h4 className="font-semibold">Sobre</h4>
+                    <p className=" text-sm text-muted-foreground">{product.description}</p>                                            
                 </div>
-            </div>
 
-            <div className="mt-6 space-y-3 ">
-                <h4 className="font-semibold">Sobre</h4>
-                <p className=" text-sm text-muted-foreground">{product.description}</p>                                            
-            </div>
-
-            <div className="mt-6 space-y-3 ">
-                <div className="flex items-center gap-1">
+                <div className="mt-6 space-y-3">
+                    <div className=" 5 flex items-center gap-1">
                     <ChefHatIcon size={18}/>
                     <h4 className="font-semibold">Ingredientes</h4>
                 </div>
-                <p className=" text-sm text-muted-foreground">{product.description}</p>
-            </div>
-            </div>
-            <div className="fixed bottom-0 left-0 w-full p-5">
-                <Button className="rounded-full w-full mt-6">Adicionar a sacola</Button>
+                    <p className=" text-sm text-muted-foreground">{product.description}</p>                                   
 
-            </div>            
+                </div>     
+                </ScrollArea>   
+            </div>    
+            </div>
+            
+            <div className="sticky bottom-0 left-0 w-full p-5">
+                <Button className="rounded-full w-full">Adicionar à sacola</Button>
+            </div>                     
 
         </div>
      );
